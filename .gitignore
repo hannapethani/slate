@@ -15,3 +15,7 @@ dist
 *.log
 *.out
 *.tex.bak
+
+*.todo
+annotation*.config
+*tutorial*
