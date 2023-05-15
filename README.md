@@ -151,7 +151,7 @@ Then, whenever one of those annotation files includes something that your curren
 A  data list file contains a series of lines in the format:
 
 ```
-raw_file [output_file [cur_line cur_token [other_annotations]]]
+raw_file [output_file [cur_position [other_annotations]]]
 ```
 
 For example, this line says there is a raw text file `my-book.txt`, that the adjudications should be saved in `annotations-adjudicated.txt`, that annotation should start at the very start of `my-book.txt` and that there are three existing annotations to be compared:
@@ -255,7 +255,9 @@ python slate.py @arguments.txt
 
 ### Keybindings
 
-The tool shows files one at a time in plain text. Default commands are:
+The tool shows files one at a time in plain text. Default commands are shown below.
+
+Note: special keys such as `ENTER` and `BACKSPACE` may not work on non-OS-X operating systems. That is why in all places where they are used we have an alternative as well.
 
 Type                        | Key                                                       | Labelling Affect                 | Linking Affect
 --------------------------- | --------------------------------------------------------- | -------------------------------- | ---------------------
@@ -312,8 +314,6 @@ Misc                        | Normal | <kbd>#</kbd>                             
 &nbsp;                      | Normal | <kbd>></kbd> then <kbd>l</kbd>                  | toggle showing legend for labels
 &nbsp;                      | Normal | <kbd>></kbd> then <kbd>m</kbd>                  | toggle showing the mark on the current item
 
-Note: special keys such as `ENTER` and `BACKSPACE` may not work on non-OS-X operating systems. That is why in all places where they are used we have an alternative as well.
-
 ### Misc
 
 To annotate multiple files, specify more than one as an argument.
@@ -339,6 +339,21 @@ Otherwise the system will complain that you are overwriting existing annotation 
 When the `additional_annotation_files` are included it activates an adjudication mode.
 By default, all annotations that appear in all additional files are added to the current annotations.
 Disagreements are coloured in the text, but will disappear once a decision is made (using the normal annotation commands).
+
+### Running in Windows
+
+Users have reported a range of issues when trying to run slate:
+
+- Underlining, which is used to show the currently selected text, does not work.
+- Shift keys do not work
+
+Here are a few things to try that others have found helpful:
+
+- Use the Windows Subsystem for Linux (WSL) with Ubuntu
+- Reinstall ncurses, or install windows-curses
+- If you hit an encoding issue, try converting your raw text file to ASCII
+- Try powershell
+- Use a config file with different keybindings, to avoid needing shift
 
 ## Customisation
 
@@ -403,6 +418,8 @@ Label:          PER                       SPACE_d red
 Label:          ORG                       SPACE_f yellow
 Label:          MISC                      SPACE_v magenta
 ```
+
+For an example of a custom config file, see [ner-book.config](ner-book.config)
 
 The current set of available colours is: [green, blue, white, cyan, magenta, red, yellow].
 Note that by default white is used for regular text and cyan is used for cases where multiple labels apply to the same content.
